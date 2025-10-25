@@ -1,0 +1,20 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+
+# Session files
+auth
+
+# Logs
+*.log
+baileys.log
+core.class.log
+queue.class.log
+
+# Environment variables
+.env
+
+# Other
+qr.png

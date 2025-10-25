@@ -1,0 +1,42 @@
+{
+  "name": "api-whatsapp-free",
+  "version": "1.0.0",
+  "description": "API REST para enviar mensajes de WhatsApp de forma gratuita.",
+  "main": "src/app.ts",
+  "type": "module",
+  "scripts": {
+    "dep": "pnpm tsm src/app.ts",
+    "start": "pnpm run build && node dist/app.js",
+    "build": "tsc"
+  },
+  "keywords": [
+    "whatsapp",
+    "api",
+    "bot",
+    "node"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@bot-wa/bot-wa-baileys": "1.1.5",
+    "@google/generative-ai": "^0.24.1",
+    "@hapi/boom": "^10.0.1",
+    "@huggingface/inference": "^4.13.0",
+    "baileys": "7.0.0-rc.6",
+    "body-parser": "2.2.0",
+    "dotenv": "^17.2.3",
+    "express": "5.1.0",
+    "node-cache": "^5.1.2",
+    "openai": "^6.7.0",
+    "pino": "^10.1.0",
+    "qrcode": "^1.5.4",
+    "sharp": "^0.34.4",
+    "tsm": "^2.3.0",
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.6",
+    "@types/express": "^5.0.4",
+    "@types/qrcode": "^1.5.6"
+  }
+}
