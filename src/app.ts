@@ -185,6 +185,18 @@ app.get('/stop-bot', (req, res) => {
   res.send('Bot apagado.');
 });
 
+// ==============================
+// PREVENIR INACTIVIDAD EN RENDER
+// ==============================
+const RENDER_EXTERNAL_URL = process.env.RENDER_EXTERNAL_URL;
+if (RENDER_EXTERNAL_URL) {
+  const PING_INTERVAL = 14 * 60 * 1000; // 14 minutes
+  setInterval(() => {
+    console.log("Pinging self to prevent inactivity...");
+    fetch(RENDER_EXTERNAL_URL).catch(err => console.error("Error pinging self:", err));
+  }, PING_INTERVAL);
+}
+
 app.listen(PORT, () => {
   console.log(`API Server ON: http://localhost:${PORT}`);
 });
