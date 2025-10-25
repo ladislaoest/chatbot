@@ -12,8 +12,25 @@
       <h1>Control del Bot</h1>
       <button id="toggle-button">Encender</button>
       <div id="status">Estado: Apagado</div>
+
+      <div id="agenda-container">
+        <h2>Agenda</h2>
+        <ul id="appointments-list"></ul>
+      </div>
     </div>
   </div>
+
+  <div id="edit-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Editar Cita</h2>
+      <input type="hidden" id="edit-id">
+      <input type="datetime-local" id="edit-date">
+      <input type="text" id="edit-description">
+      <button id="save-button">Guardar</button>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>

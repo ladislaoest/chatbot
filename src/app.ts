@@ -1,4 +1,4 @@
-import { addAppointment } from "./agenda.js";
+import { addAppointment, listAppointments, deleteAppointment, updateAppointment } from "./agenda.js";
 
 // ==============================
 //  BOT DE WHATSAPP - ASISTENTE PERSONAL
@@ -87,6 +87,13 @@ class BotManager {
         if (shouldReconnect) this.start();
       } else if (connection === "open") {
         console.log("✅ Conexión abierta exitosamente!");
+        try {
+          const session = fs.readFileSync(path.join(__dirname, '..', 'auth', 'creds.json'), 'utf-8');
+          console.log("🔑 Copia la siguiente cadena de sesión y guárdala en Render como WHATSAPP_SESSION:");
+          console.log(session);
+        } catch (error) {
+          console.log("No se pudo leer el archivo de sesión. Asegúrate de escanear el QR para generar uno.");
+        }
       }
     });
 
@@ -173,7 +180,36 @@ const botManager = new BotManager();
 const app = express();
 const PORT = process.env.PORT || 3002;
 
+app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
+
+app.get('/api/appointments', (req, res) => {
+  res.json(listAppointments());
+});
+
+app.delete('/api/appointments/:id', (req, res) => {
+  const { id } = req.params;
+  if (deleteAppointment(id)) {
+    res.status(204).send();
+  } else {
+    res.status(404).send('Appointment not found');
+  }
+});
+
+app.put('/api/appointments/:id', (req, res) => {
+  const { id } = req.params;
+  const { date, description } = req.body;
+  const newDate = new Date(date);
+  if (isNaN(newDate.getTime())) {
+    return res.status(400).send('Invalid date format');
+  }
+  const updatedAppointment = updateAppointment(id, newDate, description);
+  if (updatedAppointment) {
+    res.json(updatedAppointment);
+  } else {
+    res.status(404).send('Appointment not found');
+  }
+});
 
 app.get('/start-bot', (req, res) => {
   botManager.start();

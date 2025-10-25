@@ -14,11 +14,7 @@ timeout /t 15 /nobreak >nul
 
 REM Ejecuta el comando de inicio definido en tu package.json.
 echo "Iniciando el bot de WhatsApp..."
-start "WhatsApp Bot Server" /b call pnpm run start
-timeout /t 5 /nobreak >nul
-start http://localhost:3002
-echo "El servidor del bot se está ejecutando en segundo plano."
-echo "Puedes cerrar esta ventana, pero el servidor seguirá funcionando."
+call pnpm run start
 
 REM Mantiene la ventana abierta para que puedas ver los errores.
 pause
